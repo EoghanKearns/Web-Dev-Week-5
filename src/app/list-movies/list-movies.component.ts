@@ -21,4 +21,17 @@ export class ListMoviesComponent implements OnInit {
     this.movies = this.movieService.getMovies();
     console.log(this.movies);
   }
+
+  selectMovie(myMovie:Movie):void {
+    console.log(myMovie);
+    this.currentMovie=myMovie;
+    this.onSelectedMovie.emit(myMovie);
+  }
+
+  isSelected(movie:Movie): boolean {
+    if (!movie || !this.currentMovie) {
+      return false;
+    }
+    return movie.title === this.currentMovie.title;
+  }
 }
