@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { Movie } from "src/movie.model";
 
@@ -9,8 +9,13 @@ import { Movie } from "src/movie.model";
 })
 export class ListMoviesComponent implements OnInit {
   movies=[] as any;
+  private currentMovie:Movie | undefined;
 
-  constructor(private movieService: MovieService) {}
+  @Output() onSelectedMovie: EventEmitter<Movie>;
+
+  constructor(private movieService: MovieService) {
+    this.onSelectedMovie=new EventEmitter();
+  }
 
   ngOnInit() {
     this.movies = this.movieService.getMovies();
